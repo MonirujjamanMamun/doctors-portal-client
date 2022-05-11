@@ -22,7 +22,7 @@ const Info = () => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-5 px-12'>
             <InfoCart img={clock} text={clockText} bgColor={btnColor}></InfoCart>
-            <InfoCart img={marker} text={markerText} bgColor='bg-accent'></InfoCart>
+            <InfoCart img={marker} text={markerText} bgColor={'bg-[#3A4256]'}></InfoCart>
             <InfoCart img={phone} text={phoneText} bgColor={btnColor}></InfoCart>
         </div>
     );

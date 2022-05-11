@@ -2,6 +2,7 @@ import React from 'react';
 import DentalCare from '../Services/DentalCare';
 import DoctorAppiontment from '../Services/DoctorAppiontment';
 import Service from '../Services/Service';
+import Footer from '../Shared/Footer';
 import Header from './Header';
 import Info from './Info';
 import PatientsSays from './PatientsSays';
@@ -15,6 +16,7 @@ const Home = () => {
             <DentalCare></DentalCare>
             <DoctorAppiontment></DoctorAppiontment>
             <PatientsSays></PatientsSays>
+            <Footer></Footer>
         </div>
     );
 };

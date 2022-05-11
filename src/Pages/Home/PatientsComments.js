@@ -1,7 +1,7 @@
 import React from 'react';
 
 const PatientsComments = ({ comment }) => {
-    console.log(comment)
+
     return (
         <section>
             <div className="card bg-base-100 shadow-xl">
@@ -9,7 +9,7 @@ const PatientsComments = ({ comment }) => {
 
                     <p>If a dog chews shoes whose shoes does he choose?</p>
 
-                    <div class="flex items-center">
+                    <div className="flex items-center">
                         <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                             <img src={comment.img} />
                         </div>
