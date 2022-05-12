@@ -1,12 +1,15 @@
 import React from 'react';
 import { format } from 'date-fns';
 
-const BookingModal = ({ modal, date }) => {
+const BookingModal = ({ modal, date, setModal }) => {
     const { name, slots } = modal;
 
     const handelModal = event => {
         event.preventDefault()
-        const name = event.name.target.value;
+        const slot = event.target.slot.value;
+        setModal(null)
+
+        console.log(slot)
     }
     return (
         <div>
@@ -14,10 +17,10 @@ const BookingModal = ({ modal, date }) => {
             <div className="modal modal-bottom sm:modal-middle ">
                 <div className="modal-box mx-auto">
                     <label for="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-                    <h3 className="font-bold text-lg">{modal?.name}</h3>
+                    <h3 className="font-bold text-lg">{name}</h3>
                     <form onSubmit={handelModal} className='grid grid-cols-1 justify-center w-96 mx-auto'>
                         <input type="text" disabled value={format(date, 'PP')} className="input input-bordered my-2 max-w-xs" />
-                        <select className="select select-bordered w-full max-w-xs">
+                        <select name='slot' className="select select-bordered w-full max-w-xs">
                             {
                                 slots.map(slot => <option value={slot}>{slot}</option>)
                             }

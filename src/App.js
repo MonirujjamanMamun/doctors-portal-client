@@ -7,9 +7,9 @@ import About from './Pages/Other/About';
 
 import Reviews from './Pages/Other/Reviews';
 import ContactUs from './Pages/Other/ContactUs';
-import Login from './Pages/Other/Login';
 import DataNotFound from './Pages/Shared/DataNotFound';
 import Appointment from './Pages/Appointment/Appointment';
+import Login from './Pages/Login/Login';
 
 
 
