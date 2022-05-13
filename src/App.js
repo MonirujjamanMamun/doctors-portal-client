@@ -10,6 +10,7 @@ import ContactUs from './Pages/Other/ContactUs';
 import DataNotFound from './Pages/Shared/DataNotFound';
 import Appointment from './Pages/Appointment/Appointment';
 import Login from './Pages/Login/Login';
+import SginUp from './Pages/Login/SginUp';
 
 
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/reviews' element={<Reviews></Reviews>}></Route>
         <Route path='/contactus' element={<ContactUs></ContactUs>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
+        <Route path='/signup' element={<SginUp></SginUp>}></Route>
         <Route path='/datanotfound' element={<DataNotFound></DataNotFound>}></Route>
       </Routes>
 
