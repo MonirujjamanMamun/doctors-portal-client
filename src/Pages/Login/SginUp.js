@@ -1,42 +1,40 @@
 import React from 'react';
-import { useUpdateProfile } from 'react-firebase-hooks/auth';
+import { useSignInWithGoogle, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useTokon from '../../Hooks/useTokon';
+import Loading from '../Shared/Loading';
 
 
 const SginUp = () => {
     const { register, formState: { errors }, handleSubmit } = useForm();
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
+    const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
+    const navigate = useNavigate();
+    const [tokon] = useTokon(user || guser);
 
     let signError;
 
-    if (error || updateError) {
+    if (error || updateError || gerror) {
         signError = <p className='text-white bg-red-700 px-2 py-3 rounded-lg'>Error: {error?.message || updateError?.message}</p>
     }
 
-    if (user) {
-        console.log(user)
+    if (tokon) {
+        navigate("/appointment")
     }
 
-    if (loading || updating) {
-        return (
-            <div className='text-center my-28'>
-                <button className="btn btn-square btn-lg loading"></button>
-            </div>
-        )
+    if (loading || updating || gloading) {
+        return <Loading></Loading>
     }
 
+    const handelWithGoogle = () => {
+        signInWithGoogle()
+    }
 
     const onSubmit = async data => {
-        // data.preventDefault()
         await createUserWithEmailAndPassword(data.email, data.password)
         await updateProfile({ displayName: data.name });
 
@@ -118,6 +116,10 @@ const SginUp = () => {
                     {signError}
                     <input type="submit" value='Sign Up' className="btn btn-accent text-white mt-3 max-w-xs" />
                     <p><small>Already have an Account <Link className='text-primary' to='/login'>Log In</Link> </small></p>
+
+                    <div className='divider'>OR</div>
+
+                    <button onClick={handelWithGoogle} type="submit" value='Continue With Google' className="btn btn-accent text-white mt-3 max-w-xs">Continue With Google</button>
                 </form>
             </div>
 

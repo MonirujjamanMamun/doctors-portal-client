@@ -5,13 +5,13 @@ import Service from './Service';
 
 const AvailableAppointments = ({ date }) => {
     const [services, setService] = useState([]);
-    const [modal, setModal] = useState(null);
-
+    const [treatment, setTreatment] = useState(null);
+    const formattedDate = format(date, "PP")
     useEffect(() => {
-        fetch('http://localhost:5000/service')
+        fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then(res => res.json())
             .then(data => setService(data))
-    }, [])
+    }, [formattedDate])
     return (
         <div>
             <div>
@@ -19,11 +19,11 @@ const AvailableAppointments = ({ date }) => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-10'>
                 {
-                    services.map(service => <Service key={service._id} service={service} setModal={setModal}></Service>)
+                    services.map((service, index) => <Service key={index} service={service} setTreatment={setTreatment}></Service>)
 
                 }
             </div>
-            {modal && <BookingModal modal={modal} date={date} setModal={setModal}></BookingModal>}
+            {treatment && <BookingModal treatment={treatment} date={date} setTreatment={setTreatment}></BookingModal>}
         </div>
     );
 };

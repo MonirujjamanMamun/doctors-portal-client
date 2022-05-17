@@ -3,7 +3,9 @@ import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from "react-hook-form";
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import useTokon from '../../Hooks/useTokon';
+import Loading from '../Shared/Loading';
 
 const Login = () => {
     const [signInWithGoogle, guser, gloading, gerror] = useSignInWithGoogle(auth);
@@ -14,32 +16,30 @@ const Login = () => {
         loading,
         error,
     ] = useSignInWithEmailAndPassword(auth);
+    const [tokon] = useTokon(user || guser);
     const navigate = useNavigate()
+    const location = useLocation
+    let from = location.state?.from?.pathname || "/";
     let signError;
 
     if (error || gerror) {
         signError = <p className='text-white bg-red-700 px-2 py-3 rounded-lg'>Error: {error?.message || gerror?.message}</p>
     }
 
-    if (user || guser) {
-        navigate('/appointment')
+    if (tokon) {
+        navigate(from, { replace: true });
     }
 
     if (loading || gloading) {
-        return (
-            <div className='text-center my-28'>
-                <button className="btn btn-square btn-lg loading"></button>
-            </div>
-        )
+        return <Loading></Loading>
     }
 
     const handelWithGoogle = () => {
         signInWithGoogle()
-
     }
+
     const onSubmit = data => {
         signInWithEmailAndPassword(data.email, data.password);
-
     }
 
     return (
